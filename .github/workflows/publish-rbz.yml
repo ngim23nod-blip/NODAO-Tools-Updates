@@ -45,6 +45,7 @@ jobs:
               echo "part_count=${PART_COUNT:-unavailable}"
               echo "b64_bytes=${B64_BYTES:-unavailable}"
               echo "b64_chars=${B64_CHARS:-unavailable}"
+              echo "expected_b64_chars=${EXPECTED_B64_CHARS:-unavailable}"
               echo "parts:"
               printf '%s\n' "${PARTS[@]:-}"
             } > transfer/FAILURE.txt
@@ -68,10 +69,14 @@ jobs:
 
           cat "${PARTS[@]}" > /tmp/nodao.b64 || fail concatenate_failed
           B64_BYTES=$(wc -c < /tmp/nodao.b64 | tr -d ' ')
-          B64_CHARS=$(tr -d '\r\n\t ' < /tmp/nodao.b64 | wc -c | tr -d ' ')
+          tr -d '\r\n\t ' < /tmp/nodao.b64 > /tmp/nodao.clean.b64
+          B64_CHARS=$(wc -c < /tmp/nodao.clean.b64 | tr -d ' ')
+          EXPECTED_B64_CHARS=$(( 4 * ((EXPECTED_SIZE + 2) / 3) ))
+          test "$B64_CHARS" = "$EXPECTED_B64_CHARS" || fail base64_length_mismatch
+          grep -Eq '^[A-Za-z0-9+/]*={0,2}$' /tmp/nodao.clean.b64 || fail base64_invalid_characters
 
           set +e
-          base64 --decode /tmp/nodao.b64 > "/tmp/nodao_tools_v$VERSION.rbz"
+          base64 --decode /tmp/nodao.clean.b64 > "/tmp/nodao_tools_v$VERSION.rbz"
           DECODE_STATUS=$?
           set -e
           test "$DECODE_STATUS" -eq 0 || fail base64_decode_failed
@@ -111,8 +116,21 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
+          git add -f "dist/v$VERSION/nodao_tools_v$VERSION.rbz"
           git commit -m "Publish V$VERSION"
+          git pull --rebase origin main
           git push origin HEAD:main
 
-          git tag -f "v$VERSION"
+          PUBLISHED_SHA=$(git rev-parse HEAD)
+          git show "$PUBLISHED_SHA:dist/v$VERSION/nodao_tools_v$VERSION.rbz" > /tmp/verify-published.rbz
+          VERIFIED_SIZE=$(stat -c%s /tmp/verify-published.rbz)
+          VERIFIED_SHA=$(sha256sum /tmp/verify-published.rbz | awk '{print $1}')
+          test "$VERIFIED_SIZE" = "$EXPECTED_SIZE"
+          test "$VERIFIED_SHA" = "$EXPECTED_SHA"
+
+          # Keep both a branch and a tag on the exact published commit.
+          # The updater resolves ref=vX.Y.Z through GitHub's Contents API; a stale
+          # branch with the same name can shadow the tag, so both must be synced.
+          git push origin -f "$PUBLISHED_SHA:refs/heads/v$VERSION"
+          git tag -f "v$VERSION" "$PUBLISHED_SHA"
           git push origin -f "refs/tags/v$VERSION"
