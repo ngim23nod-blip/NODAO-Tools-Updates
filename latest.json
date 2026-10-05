@@ -1,13 +1,13 @@
 {
   "product": "NODAO Tools",
   "channel": "stable",
-  "version": "1.4.2",
-  "released": "2026-09-24",
+  "version": "1.4.4",
+  "released": "2026-10-05",
   "repo_id": 1384193965,
   "updater_schema": 1,
-  "ref": "v1.4.2",
+  "ref": "v1.4.4",
   "artifact": {
-    "path": "dist/v1.4.2/nodao_tools_v1.4.2.rbz",
-    "sha256": "661bb07f436aa8dffa4351a8b93f72a7b0d2101023e260b9cc8b5ed04b50e33c"
+    "path": "dist/v1.4.4/nodao_tools_v1.4.4.rbz",
+    "sha256": "bd6268596e80e048f4280042f0af1661ade6ac1baab31a0ca3389498bd06de31"
   }
 }
