@@ -3,8 +3,13 @@ name: Publish NODAO RBZ
 on:
   push:
     branches: [main]
-    paths:
-      - 'transfer/READY.json'
+    paths: ['releases/*.json', 'scripts/**', 'test/**', '.github/workflows/publish-rbz.yml']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to resume (empty = highest staged version)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -18,119 +23,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Build, verify and publish RBZ
-        shell: bash
+      - name: Test publication failure and retry scenarios
+        run: python3 -m unittest discover -s test -p 'test_release_pipeline.py' -v
+      - name: Select validated release request
+        id: request
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
         run: |
-          set -uo pipefail
-
-          VERSION=$(jq -r '.version' transfer/READY.json)
-          EXPECTED_SHA=$(jq -r '.sha256' transfer/READY.json)
-          EXPECTED_SIZE=$(jq -r '.size' transfer/READY.json)
-          RELEASED=$(jq -r '.released' transfer/READY.json)
-
-          fail() {
-            REASON="$1"
-            mkdir -p transfer
-            {
-              echo "reason=$REASON"
-              echo "version=$VERSION"
-              echo "expected_size=$EXPECTED_SIZE"
-              echo "actual_size=${ACTUAL_SIZE:-unavailable}"
-              echo "expected_sha=$EXPECTED_SHA"
-              echo "actual_sha=${ACTUAL_SHA:-unavailable}"
-              echo "decode_status=${DECODE_STATUS:-unavailable}"
-              echo "part_count=${PART_COUNT:-unavailable}"
-              echo "b64_bytes=${B64_BYTES:-unavailable}"
-              echo "b64_chars=${B64_CHARS:-unavailable}"
-              echo "expected_b64_chars=${EXPECTED_B64_CHARS:-unavailable}"
-              echo "parts:"
-              printf '%s\n' "${PARTS[@]:-}"
-            } > transfer/FAILURE.txt
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add transfer/FAILURE.txt
-            git commit -m "Record V$VERSION publish failure" || true
-            git push origin HEAD:main || true
-            exit 1
-          }
-
-          test -n "$VERSION" && test "$VERSION" != "null" || fail invalid_version
-          test -n "$EXPECTED_SHA" && test "$EXPECTED_SHA" != "null" || fail invalid_sha
-          test -n "$EXPECTED_SIZE" && test "$EXPECTED_SIZE" != "null" || fail invalid_size
-          test -n "$RELEASED" && test "$RELEASED" != "null" || fail invalid_release_date
-          test -d "transfer/v$VERSION" || fail missing_transfer_directory
-
-          mapfile -d '' PARTS < <(find "transfer/v$VERSION" -type f -name '*.b64' -print0 | sort -z)
-          PART_COUNT=${#PARTS[@]}
-          test "$PART_COUNT" -gt 0 || fail no_transfer_parts
-
-          cat "${PARTS[@]}" > /tmp/nodao.b64 || fail concatenate_failed
-          B64_BYTES=$(wc -c < /tmp/nodao.b64 | tr -d ' ')
-          tr -d '\r\n\t ' < /tmp/nodao.b64 > /tmp/nodao.clean.b64
-          B64_CHARS=$(wc -c < /tmp/nodao.clean.b64 | tr -d ' ')
-          EXPECTED_B64_CHARS=$(( 4 * ((EXPECTED_SIZE + 2) / 3) ))
-          test "$B64_CHARS" = "$EXPECTED_B64_CHARS" || fail base64_length_mismatch
-          grep -Eq '^[A-Za-z0-9+/]*={0,2}$' /tmp/nodao.clean.b64 || fail base64_invalid_characters
-
-          set +e
-          base64 --decode /tmp/nodao.clean.b64 > "/tmp/nodao_tools_v$VERSION.rbz"
-          DECODE_STATUS=$?
-          set -e
-          test "$DECODE_STATUS" -eq 0 || fail base64_decode_failed
-
-          ACTUAL_SIZE=$(stat -c%s "/tmp/nodao_tools_v$VERSION.rbz")
-          ACTUAL_SHA=$(sha256sum "/tmp/nodao_tools_v$VERSION.rbz" | awk '{print $1}')
-          test "$ACTUAL_SIZE" = "$EXPECTED_SIZE" || fail size_mismatch
-          test "$ACTUAL_SHA" = "$EXPECTED_SHA" || fail sha_mismatch
-
-          mkdir -p "dist/v$VERSION"
-          cp "/tmp/nodao_tools_v$VERSION.rbz" "dist/v$VERSION/nodao_tools_v$VERSION.rbz"
-          printf '%s  %s\n' "$EXPECTED_SHA" "nodao_tools_v$VERSION.rbz" > "dist/v$VERSION/SHA256SUMS.txt"
-          printf '# NODAO Tools V%s\n\nRBZ de distribution construit automatiquement depuis le source privé.\n' "$VERSION" > "dist/v$VERSION/README.md"
-
-          jq -n \
-            --arg version "$VERSION" \
-            --arg released "$RELEASED" \
-            --arg ref "v$VERSION" \
-            --arg path "dist/v$VERSION/nodao_tools_v$VERSION.rbz" \
-            --arg sha "$EXPECTED_SHA" \
-            '{
-              product: "NODAO Tools",
-              channel: "stable",
-              version: $version,
-              released: $released,
-              repo_id: 1384193965,
-              updater_schema: 1,
-              ref: $ref,
-              artifact: {
-                path: $path,
-                sha256: $sha
-              }
-            }' > latest.json
-
-          rm -rf "transfer/v$VERSION" transfer/READY.json transfer/FAILURE.txt
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git add -f "dist/v$VERSION/nodao_tools_v$VERSION.rbz"
-          git commit -m "Publish V$VERSION"
-          git pull --rebase origin main
-          git push origin HEAD:main
-
-          PUBLISHED_SHA=$(git rev-parse HEAD)
-          git show "$PUBLISHED_SHA:dist/v$VERSION/nodao_tools_v$VERSION.rbz" > /tmp/verify-published.rbz
-          VERIFIED_SIZE=$(stat -c%s /tmp/verify-published.rbz)
-          VERIFIED_SHA=$(sha256sum /tmp/verify-published.rbz | awk '{print $1}')
-          test "$VERIFIED_SIZE" = "$EXPECTED_SIZE"
-          test "$VERIFIED_SHA" = "$EXPECTED_SHA"
-
-          # Keep both a branch and a tag on the exact published commit.
-          # The updater resolves ref=vX.Y.Z through GitHub's Contents API; a stale
-          # branch with the same name can shadow the tag, so both must be synced.
-          git push origin -f "$PUBLISHED_SHA:refs/heads/v$VERSION"
-          git tag -f "v$VERSION" "$PUBLISHED_SHA"
-          git push origin -f "refs/tags/v$VERSION"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          from scripts.release import SEMVER, validate_request
+          version = os.environ.get('REQUESTED_VERSION', '')
+          if version:
+              if not SEMVER.fullmatch(version):
+                  raise ValueError('Invalid requested version')
+              path = Path(f'releases/v{version}.json')
+              validate_request(json.loads(path.read_text()))
+          else:
+              paths = list(Path('releases').glob('v*.json'))
+              for p in paths:
+                  data = validate_request(json.loads(p.read_text()))
+                  if p.name != f"v{data['version']}.json":
+                      raise ValueError('Release filename mismatch')
+              path = max(paths, key=lambda p: tuple(map(int, p.stem[1:].split('.')))) if paths else None
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write(f'request={path.as_posix() if path else ""}\n')
+          PY
+      - name: Verify public RBZ, pin immutable commit, then advance manifest
+        if: steps.request.outputs.request != ''
+        env:
+          NODAO_RELEASE_TOKEN: ${{ github.token }}
+          REQUEST_PATH: ${{ steps.request.outputs.request }}
+        run: |
+          set -euo pipefail
+          python3 scripts/release.py publish --request "$REQUEST_PATH"
+          python3 scripts/release.py verify --request "$REQUEST_PATH"
+      - name: Report staging-only state
+        if: steps.request.outputs.request == ''
+        run: echo 'Pipeline installed; no release request staged.' >> "$GITHUB_STEP_SUMMARY"
