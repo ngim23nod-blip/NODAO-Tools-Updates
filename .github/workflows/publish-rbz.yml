@@ -3,7 +3,7 @@ name: Publish NODAO RBZ
 on:
   push:
     branches: [main]
-    paths: ['releases/*.json', 'scripts/**', 'test/**', '.github/workflows/publish-rbz.yml']
+    paths: ['releases/*.json', 'transfer/**', 'scripts/**', 'test/**', '.github/workflows/publish-rbz.yml']
   workflow_dispatch:
     inputs:
       version:
@@ -50,6 +50,22 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
               out.write(f'request={path.as_posix() if path else ""}\n')
           PY
+      - name: Reconstruct and stage verified maintenance transfer when present
+        if: steps.request.outputs.request != ''
+        env:
+          NODAO_RELEASE_TOKEN: ${{ github.token }}
+          REQUEST_PATH: ${{ steps.request.outputs.request }}
+        run: |
+          set -euo pipefail
+          VERSION="$(python3 -c 'import json,os; print(json.load(open(os.environ["REQUEST_PATH"]))["version"])')"
+          TRANSFER_DIR="transfer/v${VERSION}"
+          if [ -d "$TRANSFER_DIR" ]; then
+            PARTS=("$TRANSFER_DIR"/part_*.b64)
+            test -e "${PARTS[0]}"
+            mkdir -p "dist/v${VERSION}"
+            cat "${PARTS[@]}" | tr -d '\r\n' | base64 --decode > "dist/v${VERSION}/nodao_tools_v${VERSION}.rbz"
+            python3 scripts/release.py stage --request "$REQUEST_PATH"
+          fi
       - name: Verify public RBZ, pin immutable commit, then advance manifest
         if: steps.request.outputs.request != ''
         env:
