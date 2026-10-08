@@ -1,0 +1,10 @@
+{
+  "version": "1.6.0",
+  "released": "2026-10-08",
+  "source_commit": "fa98f9db588fc5243076b2763ffe21d4600e771b",
+  "artifact": {
+    "path": "dist/v1.6.0/nodao_tools_v1.6.0.rbz",
+    "size": 103817,
+    "sha256": "6f1dab9af27e236af9359410b1d38c8382b50a0147968376da29ece36feb41f0"
+  }
+}
