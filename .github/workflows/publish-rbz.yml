@@ -60,15 +60,19 @@ jobs:
           VERSION="$(python3 -c 'import json,os; print(json.load(open(os.environ["REQUEST_PATH"]))["version"])')"
           ARTIFACT_URL="$(python3 -c 'import json,os; print(json.load(open(os.environ["REQUEST_PATH"])).get("artifact_url", ""))')"
           TRANSFER_DIR="transfer/v${VERSION}"
-          mkdir -p "dist/v${VERSION}"
-          if [ -n "$ARTIFACT_URL" ]; then
+          ARTIFACT_PATH="dist/v${VERSION}/nodao_tools_v${VERSION}.rbz"
+          if [ -f "$ARTIFACT_PATH" ]; then
+            python3 scripts/release.py stage --request "$REQUEST_PATH"
+          elif [ -n "$ARTIFACT_URL" ]; then
+            mkdir -p "dist/v${VERSION}"
             curl --fail --location --silent --show-error "$ARTIFACT_URL" -o /tmp/nodao-build.zip
-            unzip -p /tmp/nodao-build.zip "nodao_tools_v${VERSION}.rbz" > "dist/v${VERSION}/nodao_tools_v${VERSION}.rbz"
+            unzip -p /tmp/nodao-build.zip "nodao_tools_v${VERSION}.rbz" > "$ARTIFACT_PATH"
             python3 scripts/release.py stage --request "$REQUEST_PATH"
           elif [ -d "$TRANSFER_DIR" ]; then
             PARTS=("$TRANSFER_DIR"/part_*.b64)
             test -e "${PARTS[0]}"
-            cat "${PARTS[@]}" | tr -d '\r\n' | base64 --decode > "dist/v${VERSION}/nodao_tools_v${VERSION}.rbz"
+            mkdir -p "dist/v${VERSION}"
+            cat "${PARTS[@]}" | tr -d '\r\n' | base64 --decode > "$ARTIFACT_PATH"
             python3 scripts/release.py stage --request "$REQUEST_PATH"
           fi
       - name: Verify public RBZ, pin immutable commit, then advance manifest
