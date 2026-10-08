@@ -2,7 +2,6 @@
   "version": "1.5.2",
   "released": "2026-10-06",
   "source_commit": "77b74fcdcd2f0e52003bc6dc90c8420ce45705c5",
-  "artifact_url": "https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-59e0-8210-afd3-b5090c2c0df9/raw?se=2026-10-08T20%3A05%3A03Z&sp=r&sv=2026-02-06&sr=b&scid=056849d6-a089-52f2-8a99-2364b071c2ed&skoid=a4604a88-85e4-4562-b6ab-a5622268de80&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-08T17%3A30%3A18Z&ske=2026-10-09T17%3A30%3A18Z&sks=b&skv=2026-02-06&sig=sjcCV10G9NRSJ1jaelK/BQYqNgXg/yNFymv7/Kq7sCw%3D",
   "artifact": {
     "path": "dist/v1.5.2/nodao_tools_v1.5.2.rbz",
     "size": 103861,
