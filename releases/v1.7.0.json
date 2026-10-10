@@ -1,0 +1,11 @@
+{
+  "version": "1.7.0",
+  "released": "2026-10-10",
+  "source_commit": "06cb7e0468b760ab910826251644595aff818252",
+  "artifact": {
+    "path": "dist/v1.7.0/nodao_tools_v1.7.0.rbz",
+    "size": 114960,
+    "sha256": "2a989405d9b53e228fbc3781787f2e2bb594ac66c06e4bed3351cb147e65eefd"
+  },
+  "artifact_url": "https://sdmntprnortheu.oaiusercontent.com/files/00000000-ea44-81f4-a724-3c05498f703d/raw?se=2026-10-10T19%3A22%3A26Z&sp=r&sv=2026-02-06&sr=b&scid=62c36dbf-75fa-5b51-9c14-3f441f33ca5f&skoid=a4604a88-85e4-4562-b6ab-a5622268de80&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-10T06%3A21%3A17Z&ske=2026-10-11T06%3A21%3A17Z&sks=b&skv=2026-02-06&sig=rAGwUOAE6NepEOpcqmi/jsrIvVWgFGkvaDzjFZnkrDo%3D"
+}
