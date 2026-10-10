@@ -1,0 +1,16 @@
+{
+  "version": "1.7.1",
+  "released": "2026-10-10",
+  "source_commit": "f7ed462be7c8ad1c28b3cd58e1f8ad7ca8d2109c",
+  "artifact_url": "https://sdmntprnortheu.oaiusercontent.com/files/00000000-5a28-81f4-a747-7b6eb1ae68b8/raw?se=2026-10-10T21%3A32%3A51Z&sp=r&sv=2026-02-06&sr=b&scid=6ab1191a-0ff5-51b9-a31a-dd7ea22208a8&skoid=a4604a88-85e4-4562-b6ab-a5622268de80&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-10T09%3A55%3A17Z&ske=2026-10-11T09%3A55%3A17Z&sks=b&skv=2026-02-06&sig=PF/tdjtO0RfIRNT2yEL3bSkPyYUg6ycML4n2MEfPYyw%3D",
+  "artifact": {
+    "path": "dist/v1.7.1/nodao_tools_v1.7.1.rbz",
+    "size": 115760,
+    "sha256": "7d9ea4b758b561b677bc70bbff3b3355bf70236df44ba7cefc3445b08fa3d12b"
+  },
+  "test_fixture": {
+    "path": "dist/v1.7.1/NODAO_RELEASE_TEST.json",
+    "size": 11656,
+    "sha256": "663cb643246747a264b39569263ca3a7cdb4e8e6eaea558404e058496ca48b51"
+  }
+}
