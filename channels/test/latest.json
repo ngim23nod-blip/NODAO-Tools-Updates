@@ -1,0 +1,15 @@
+{
+  "product": "NODAO Tools",
+  "channel": "test",
+  "version": "1.7.0",
+  "released": "2026-10-10",
+  "repo_id": 1384193965,
+  "updater_schema": 1,
+  "ref": "432c227882114ccf65acc372ffe65e7567444055",
+  "tag": "test-v1.7.0",
+  "artifact": {
+    "path": "dist/v1.7.0/nodao_tools_v1.7.0.rbz",
+    "size": 114960,
+    "sha256": "2a989405d9b53e228fbc3781787f2e2bb594ac66c06e4bed3351cb147e65eefd"
+  }
+}

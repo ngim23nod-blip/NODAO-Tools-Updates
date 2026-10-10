@@ -1,0 +1,49 @@
+name: Resume verified NODAO test publication
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Exact staged test version (e.g. 1.8.0-test.2)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nodao-public-test-publish
+  cancel-in-progress: false
+
+jobs:
+  publish-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run all release pipeline regressions
+        run: python3 -m unittest discover -s test -p 'test_release_pipeline.py' -v
+      - name: Require a test-only release request
+        id: request
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from scripts.release import SEMVER, validate_request, request_channel, request_path
+          version = os.environ['REQUESTED_VERSION']
+          if not SEMVER.fullmatch(version):
+              raise ValueError('Invalid candidate version')
+          path = f'releases/test/v{version}.json'
+          data = validate_request(json.load(open(path)))
+          if request_channel(data) != 'test' or request_path(data) != path:
+              raise ValueError('Test workflow refuses stable requests')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write(f'request={path}\n')
+          PY
+      - name: Verify public bytes and advance only the test manifest
+        env:
+          NODAO_RELEASE_TOKEN: ${{ github.token }}
+          REQUEST_PATH: ${{ steps.request.outputs.request }}
+        run: |
+          python3 scripts/release.py publish --channel test --request "$REQUEST_PATH"
+          python3 scripts/release.py verify --channel test --request "$REQUEST_PATH"
