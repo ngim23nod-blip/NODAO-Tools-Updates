@@ -1,0 +1,640 @@
+{
+  "project_id": "NODAO_RELEASE_TEST",
+  "project_code": "NODAO_RELEASE_TEST",
+  "status": "VALIDATED",
+  "data_revision": 1,
+  "zones": [
+    {
+      "zone_id": "Z01",
+      "status": "VALIDATED"
+    }
+  ],
+  "materials": [
+    {
+      "material_id": "MAT_PANEL_19",
+      "name": "Panneau 19",
+      "family": "PANEL",
+      "status": "VALIDATED",
+      "grained": false
+    },
+    {
+      "material_id": "MAT_PANEL_18",
+      "name": "Panneau 18",
+      "family": "PANEL",
+      "status": "VALIDATED",
+      "grained": false
+    }
+  ],
+  "furniture": [
+    {
+      "furniture_id": "M90",
+      "zone_id": "Z01",
+      "status": "VALIDATED",
+      "finished_dimensions_mm": {
+        "width": 600,
+        "height": 720,
+        "depth": 518
+      },
+      "parts": [
+        {
+          "part_name": "M90_STR_JOUE",
+          "family": "STR",
+          "role": "JOUE",
+          "semantic_key": "CARCASS_SIDE",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 2,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 720,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "00000000-0000-4000-a000-000000000001",
+              "occurrence_index": 1,
+              "plane": "YZ",
+              "position_mm": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "status": "VALIDATED"
+            },
+            {
+              "part_uid": "00000000-0000-4000-a000-000000000002",
+              "occurrence_index": 2,
+              "plane": "YZ",
+              "position_mm": {
+                "x": 581,
+                "y": 0,
+                "z": 0
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        },
+        {
+          "part_name": "M90_STR_DESSUS",
+          "family": "STR",
+          "role": "DESSUS",
+          "semantic_key": "CARCASS_TOP",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 562,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "00000000-0000-4000-a000-000000000003",
+              "occurrence_index": 1,
+              "plane": "XY",
+              "position_mm": {
+                "x": 19,
+                "y": 0,
+                "z": 701
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        },
+        {
+          "part_name": "M90_STR_DESSOUS",
+          "family": "STR",
+          "role": "DESSOUS",
+          "semantic_key": "CARCASS_BOTTOM",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 562,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "00000000-0000-4000-a000-000000000004",
+              "occurrence_index": 1,
+              "plane": "XY",
+              "position_mm": {
+                "x": 19,
+                "y": 0,
+                "z": 0
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        },
+        {
+          "part_name": "M90_FAC_PORTE",
+          "family": "FAC",
+          "role": "PORTE",
+          "semantic_key": "FACADE_DOOR",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_18",
+          "thickness_mm": 18,
+          "dimensions_mm": {
+            "length": 596,
+            "width": 716,
+            "thickness": 18
+          },
+          "placements": [
+            {
+              "part_uid": "00000000-0000-4000-a000-000000000005",
+              "occurrence_index": 1,
+              "plane": "XZ",
+              "position_mm": {
+                "x": 2,
+                "y": -18,
+                "z": 2
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        }
+      ],
+      "furniture_uid": "00000000-0000-4000-a000-000000000090"
+    },
+    {
+      "furniture_id": "M91",
+      "zone_id": "Z01",
+      "status": "VALIDATED",
+      "finished_dimensions_mm": {
+        "width": 600,
+        "height": 720,
+        "depth": 518
+      },
+      "parts": [
+        {
+          "part_name": "M91_STR_JOUE",
+          "family": "STR",
+          "role": "JOUE",
+          "semantic_key": "CARCASS_SIDE",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 2,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 720,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+              "occurrence_index": 1,
+              "plane": "YZ",
+              "position_mm": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "status": "VALIDATED"
+            },
+            {
+              "part_uid": "d971e1c2-7929-5e84-ad7a-327f8f5ce383",
+              "occurrence_index": 2,
+              "plane": "YZ",
+              "status": "VALIDATED",
+              "relations": [
+                {
+                  "type": "CONTACT",
+                  "axis": "X",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MAX",
+                  "target_part_uid": "58985eb3-7ba6-5dc7-9b6a-bfd940a2a5df",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "FLUSH",
+                  "axis": "Y",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MIN",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "FLUSH",
+                  "axis": "Z",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MIN",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "part_name": "M91_STR_DESSUS",
+          "family": "STR",
+          "role": "DESSUS",
+          "semantic_key": "CARCASS_TOP",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 562,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "51a7526f-14f9-5049-b1aa-bfac3cb412f7",
+              "occurrence_index": 1,
+              "plane": "XY",
+              "status": "VALIDATED",
+              "relations": [
+                {
+                  "type": "CONTACT",
+                  "axis": "X",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MAX",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "FLUSH",
+                  "axis": "Y",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MIN",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "FLUSH",
+                  "axis": "Z",
+                  "self_anchor": "MAX",
+                  "target_anchor": "MAX",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "part_name": "M91_STR_DESSOUS",
+          "family": "STR",
+          "role": "DESSOUS",
+          "semantic_key": "CARCASS_BOTTOM",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 562,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "58985eb3-7ba6-5dc7-9b6a-bfd940a2a5df",
+              "occurrence_index": 1,
+              "plane": "XY",
+              "status": "VALIDATED",
+              "relations": [
+                {
+                  "type": "CONTACT",
+                  "axis": "X",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MAX",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "FLUSH",
+                  "axis": "Y",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MIN",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "FLUSH",
+                  "axis": "Z",
+                  "self_anchor": "MIN",
+                  "target_anchor": "MIN",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "part_name": "M91_FAC_PORTE",
+          "family": "FAC",
+          "role": "PORTE",
+          "semantic_key": "FACADE_DOOR",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_18",
+          "thickness_mm": 18,
+          "dimensions_mm": {
+            "length": 596,
+            "width": 716,
+            "thickness": 18
+          },
+          "placements": [
+            {
+              "part_uid": "e2ec4a7e-9281-54af-ac8b-2516522fdcb1",
+              "occurrence_index": 1,
+              "plane": "XZ",
+              "status": "VALIDATED",
+              "relations": [
+                {
+                  "type": "ALIGN",
+                  "axis": "X",
+                  "self_anchor": "CENTER",
+                  "target_anchor": "CENTER",
+                  "target_part_uid": "58985eb3-7ba6-5dc7-9b6a-bfd940a2a5df",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "CONTACT",
+                  "axis": "Y",
+                  "self_anchor": "MAX",
+                  "target_anchor": "MIN",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                },
+                {
+                  "type": "ALIGN",
+                  "axis": "Z",
+                  "self_anchor": "CENTER",
+                  "target_anchor": "CENTER",
+                  "target_part_uid": "9bbb2294-2772-53a2-9571-055294663d90",
+                  "offset_mm": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "furniture_uid": "e040727c-1cdb-590d-afc3-4772ec1f7698"
+    },
+    {
+      "furniture_id": "M92",
+      "zone_id": "Z01",
+      "status": "VALIDATED",
+      "finished_dimensions_mm": {
+        "width": 600,
+        "height": 720,
+        "depth": 518
+      },
+      "parts": [
+        {
+          "part_name": "M92_STR_JOUE",
+          "family": "STR",
+          "role": "JOUE",
+          "semantic_key": "CARCASS_SIDE",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 2,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 720,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "3a75c686-fca6-5cde-ba72-fe324cc4aae0",
+              "occurrence_index": 1,
+              "plane": "YZ",
+              "position_mm": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+              },
+              "status": "VALIDATED"
+            },
+            {
+              "part_uid": "1fc34a13-7a72-5631-85da-b8bc78b88aa6",
+              "occurrence_index": 2,
+              "plane": "YZ",
+              "position_mm": {
+                "x": 581,
+                "y": 0,
+                "z": 0
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        },
+        {
+          "part_name": "M92_STR_DESSUS",
+          "family": "STR",
+          "role": "DESSUS",
+          "semantic_key": "CARCASS_TOP",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 562,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "909bce03-aec9-5306-9c1b-9fb536cd57f3",
+              "occurrence_index": 1,
+              "plane": "XY",
+              "position_mm": {
+                "x": 19,
+                "y": 0,
+                "z": 701
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        },
+        {
+          "part_name": "M92_STR_DESSOUS",
+          "family": "STR",
+          "role": "DESSOUS",
+          "semantic_key": "CARCASS_BOTTOM",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_19",
+          "thickness_mm": 19,
+          "dimensions_mm": {
+            "length": 562,
+            "width": 500,
+            "thickness": 19
+          },
+          "placements": [
+            {
+              "part_uid": "1b5305cc-4140-50d4-a435-62e4eb0108ab",
+              "occurrence_index": 1,
+              "plane": "XY",
+              "position_mm": {
+                "x": 19,
+                "y": 0,
+                "z": 0
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        },
+        {
+          "part_name": "M92_FAC_PORTE",
+          "family": "FAC",
+          "role": "PORTE",
+          "semantic_key": "FACADE_DOOR",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_18",
+          "thickness_mm": 18,
+          "dimensions_mm": {
+            "length": 296,
+            "width": 716,
+            "thickness": 18
+          },
+          "placements": [
+            {
+              "part_uid": "c918fca5-3331-5975-be3c-12118a01eef8",
+              "occurrence_index": 1,
+              "plane": "XZ",
+              "position_mm": {
+                "x": 2,
+                "y": -18,
+                "z": 2
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        },
+        {
+          "part_name": "M92_FAC_TIROIR",
+          "family": "FAC",
+          "role": "TIROIR",
+          "semantic_key": "FACADE_DRAWER",
+          "qualifiers": [],
+          "production_mode": "PANEL",
+          "status": "VALIDATED",
+          "count": 1,
+          "material_id": "MAT_PANEL_18",
+          "thickness_mm": 18,
+          "dimensions_mm": {
+            "length": 296,
+            "width": 150,
+            "thickness": 18
+          },
+          "placements": [
+            {
+              "part_uid": "4b7fe46e-640d-59cb-af63-d7dbee0363e6",
+              "occurrence_index": 1,
+              "plane": "XZ",
+              "position_mm": {
+                "x": 302,
+                "y": -18,
+                "z": 568
+              },
+              "status": "VALIDATED"
+            }
+          ]
+        }
+      ],
+      "furniture_uid": "060f2a4c-56d9-5d7e-b981-f603c34cba5d",
+      "hardware_requirements": [
+        {
+          "requirement_id": "REQ_M92_HINGE",
+          "category": "HINGE",
+          "owner_part_uid": "c918fca5-3331-5975-be3c-12118a01eef8",
+          "status": "VALIDATED"
+        },
+        {
+          "requirement_id": "REQ_M92_SLIDE",
+          "category": "SLIDE",
+          "owner_part_uid": "4b7fe46e-640d-59cb-af63-d7dbee0363e6",
+          "status": "VALIDATED"
+        },
+        {
+          "requirement_id": "REQ_M92_DRAWER_SYSTEM",
+          "category": "DRAWER_SYSTEM",
+          "owner_part_uid": "4b7fe46e-640d-59cb-af63-d7dbee0363e6",
+          "status": "VALIDATED"
+        }
+      ]
+    }
+  ],
+  "hardware_schedule": [
+    {
+      "hardware_id": "HW_M92_HINGE",
+      "requirement_id": "REQ_M92_HINGE",
+      "brand": "TEST",
+      "manufacturer_ref": "TEST_HINGE_110",
+      "label": "TEST_HINGE_110",
+      "quantity": 2,
+      "unit": "PCS",
+      "status": "VALIDATED",
+      "nominal_dimensions": {
+        "cup_diameter_mm": 35
+      },
+      "opening_angle_deg": 110
+    },
+    {
+      "hardware_id": "HW_M92_SLIDE",
+      "requirement_id": "REQ_M92_SLIDE",
+      "brand": "TEST",
+      "manufacturer_ref": "TEST_SLIDE_500",
+      "label": "TEST_SLIDE_500",
+      "quantity": 1,
+      "unit": "PAIR",
+      "status": "VALIDATED",
+      "nominal_dimensions": {
+        "length_mm": 500
+      }
+    },
+    {
+      "hardware_id": "HW_M92_DRAWER_SYSTEM",
+      "requirement_id": "REQ_M92_DRAWER_SYSTEM",
+      "brand": "TEST",
+      "manufacturer_ref": "TEST_DRAWER_500",
+      "label": "TEST_DRAWER_500",
+      "quantity": 1,
+      "unit": "SET",
+      "status": "VALIDATED",
+      "nominal_dimensions": {
+        "length_mm": 500,
+        "side_height_mm": 100
+      },
+      "range": "TEST_DRAWER_SYSTEM"
+    }
+  ]
+}
