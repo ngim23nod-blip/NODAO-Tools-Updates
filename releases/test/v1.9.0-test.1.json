@@ -1,0 +1,16 @@
+{
+  "version": "1.9.0-test.1",
+  "released": "2026-10-17",
+  "source_commit": "38377991df614c73ab8fdf6eb8f579b6669b6b6f",
+  "artifact": {
+    "path": "dist/v1.9.0-test.1/nodao_tools_v1.9.0-test.1.rbz",
+    "size": 137383,
+    "sha256": "fcfbd7338a75aecafc3fcf1029c2b97e8a202579c1250e35c487b23f59059a54"
+  },
+  "channel": "test",
+  "test_fixture": {
+    "path": "dist/v1.9.0-test.1/NODAO_RELEASE_TEST.json",
+    "size": 11656,
+    "sha256": "663cb643246747a264b39569263ca3a7cdb4e8e6eaea558404e058496ca48b51"
+  }
+}
